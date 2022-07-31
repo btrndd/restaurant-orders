@@ -33,27 +33,45 @@ def analyze_log(path_to_file):
     for order in list_result.values():
         orders[order[0]][order[1]] += 1
 
+    results = list()
     # Qual o prato mais pedido por 'maria'?
-    maria_plate = max(orders["maria"], key=orders["maria"].get)
+    results.append(max(orders["maria"], key=orders["maria"].get))
     # Quantas vezes 'arnaldo' pediu 'hamburguer'?
-    arnaldo_qty_burger = orders["arnaldo"]["hamburguer"]
+    results.append(orders["arnaldo"]["hamburguer"])
+
+    joao_result = joao_infos(orders, list_result)
+    results.append(joao_result[0])
+    results.append(joao_result[1])
+
+    write_txt(results)
+
+
+def joao_infos(orders, list_result):
+    result = list()
     # Quais pratos 'joao' nunca pediu?
     joao_never_asked = set()
-    for index, plate in enumerate(orders["joao"]):
+    for plate in orders["joao"]:
         if orders["joao"][plate] == 0:
             joao_never_asked.add(plate)
+    result.append(joao_never_asked)
+
     # Quais dias 'joao' nunca foi à lanchonete?
     days = {order[2] for order in list_result.values()}
     joao_days = set()
     for order in list_result.values():
         if order[0] == "joao":
             joao_days.add(order[2])
-    joao_not_days = days.difference(joao_days)
+    result.append(days.difference(joao_days))
+    return result
+
+
+def write_txt(results):
     with open("data/mkt_campaign.txt", "w") as file:
-        file.write(maria_plate)
-        file.write(f"\n{arnaldo_qty_burger}")
-        file.write(f"\n{joao_never_asked}")
-        file.write(f"\n{joao_not_days}")
+        for index, result in enumerate(results):
+            if index == 0:
+                file.write(result)
+            else:
+                file.write(f"\n{result}")
 
 
 if __name__ == '__main__':
