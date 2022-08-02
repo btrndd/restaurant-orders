@@ -46,3 +46,10 @@ class InventoryControl:
         for ing in self.INGREDIENTS[order]:
             if quantities[ing] >= self.MINIMUM_INVENTORY[ing]:
                 return False
+
+    def get_available_dishes(self):
+        result = set()
+        for order in self.INGREDIENTS.keys():
+            if self.check_ingredient_availability(order) is not False:
+                result.add(order)
+        return result
