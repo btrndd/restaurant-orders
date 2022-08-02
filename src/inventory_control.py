@@ -42,7 +42,7 @@ class InventoryControl:
         return buy_list
 
     def check_ingredient_availability(self, order):
-        quantities  = self.get_quantities_to_buy()
+        quantities = self.get_quantities_to_buy()
         for ing in self.INGREDIENTS[order]:
             if quantities[ing] >= self.MINIMUM_INVENTORY[ing]:
                 return False
