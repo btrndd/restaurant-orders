@@ -5,9 +5,9 @@ from track_orders import TrackOrders
 
 
 def print_info(tracker, control):
-    print(tracker.get_most_ordered_dish_per_customer('maria'))
-    print(tracker.get_never_ordered_per_customer('joao'))
-    print(tracker.get_days_never_visited_per_customer('joao'))
+    # print(tracker.get_most_ordered_dish_per_customer('maria'))
+    # print(tracker.get_never_ordered_per_customer('joao'))
+    # print(tracker.get_days_never_visited_per_customer('joao'))
     print(control.get_quantities_to_buy())
 
 
